@@ -2,18 +2,25 @@ import { log } from './utils/promise-helpers.js';
 import  './utils/array-helpers.js';
 import { NotasService as service} from './nota/service.js'
 
-/*const sumItens = notas => notas.$flatMap(nota => nota.itens)
-.filter( item => item.codigo == '2143')
-.reduce( (total, item) => total + item.valor, 0);*/
-
-/*const sumItens = code => notas => notas.$flatMap(nota => nota.itens)
-.filter( item => item.codigo == code)
-.reduce( (total, item) => total + item.valor, 0);*/
-
+const getItensFromNotas = notas => notas.$flatMap(notas.itens);
+const filterItemsByCode = code => getItensFromNotas.filters(item => item.codigo === code);
+//const filterItemsByCode = (code, itens) => itens.filters(item => item.codigo === code);
+const sumItensValue = itens => itens.reduce((total, item) => total += item.valor, 0);
 document.querySelector('#myButton')
 .onclick = () => service.sumItens('2143')
 .then(log)
 .catch(log);
+
+
+/*const sumItens = notas => notas.$flatMap(nota => nota.itens)
+.filter( item => item.codigo == '2143')
+.reduce( (total, item) => total + item.valor, 0);*/
+
+/*
+#code é o parametro da função e nota é o retorno referente ao  then 
+const sumItens = code  => notas => notas.$flatMap(nota => nota.itens)
+.filter( item => item.codigo == code)
+.reduce( (total, item) => total + item.valor, 0);*/
 
 /*document.querySelector('#myButton')
 .onclick = () => fetch('http://localhost:3000/notas')

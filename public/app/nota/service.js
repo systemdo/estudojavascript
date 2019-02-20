@@ -14,5 +14,8 @@ export const NotasService = {
             .filter( item => item.codigo == code)
             .reduce( (total, item) => total + item.valor, 0)
         )
+    },
+    getItemsFromNota(){
+        
     }
 }
